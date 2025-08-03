@@ -11,7 +11,11 @@ async function applyToFirstJob(page: Page) {
   await page.waitForLoadState('domcontentloaded');
 
   logStep('Filling in job search');
-  const searchInput = page.locator('input[aria-label="Search by title, skill, or company"]:not([disabled])');
+  const searchInput =
+    (await page.locator('input[aria-label="Search by title, skill, or company"]').count()) > 0
+      ? page.locator('input[aria-label="Search by title, skill, or company"]')
+      : page.locator('input[placeholder*="Search jobs"]');
+
   await expect(searchInput).toBeVisible({ timeout: 15000 });
 
   await searchInput.fill(jobTitle);
