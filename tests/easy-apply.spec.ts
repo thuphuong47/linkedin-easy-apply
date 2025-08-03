@@ -1,19 +1,21 @@
 
 import { test, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { logStep, logError } from '../utils/logger';
 
 const jobTitle = 'QA Automation';
 
-async function applyToFirstJob(page) {
-  await logStep('Navigating to LinkedIn Jobs page');
+async function applyToFirstJob(page: Page) {
+  logStep('Navigating to LinkedIn Jobs page');
   await page.goto('/jobs');
   await page.waitForLoadState('domcontentloaded');
 
   logStep('Filling in job search');
-  const searchInput = page.getByPlaceholder('Search jobs');
-  await expect(searchInput).toBeVisible();
+  const searchInput = page.locator('input[aria-label="Search by title, skill, or company"]:not([disabled])');
+  await expect(searchInput).toBeVisible({ timeout: 15000 });
+
   await searchInput.fill(jobTitle);
-  await page.keyboard.press('Enter');
+  await searchInput.press('Enter'); 
 
   logStep('Filtering jobs with Easy Apply only');
   const easyApplyFilter = page.locator('#searchFilter_applyWithLinkedin');

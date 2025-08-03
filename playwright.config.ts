@@ -1,31 +1,62 @@
-
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const BASE_URL = 'https://www.linkedin.com';
+const VIEWPORT_DESKTOP = { width: 1280, height: 720 };
+
 export default defineConfig({
-  testDir: './tests',
   timeout: 60000,
-  fullyParallel: true,
+  retries: 1,
+  testDir: './tests',
+  globalSetup: './global-setup.ts',
+
+  reporter: [
+    ['list'],
+    ['html', { outputFolder: 'playwright-report' }],
+  ],
+
   use: {
-    baseURL: 'https://www.linkedin.com',
-    trace: 'on-first-retry',
+    baseURL: BASE_URL,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    trace: 'retain-on-failure',
   },
-  globalSetup: './helpers/global-setup.ts',
+
   projects: [
     {
-      name: 'User 1',
+      name: 'chrome',
       use: {
-        storageState: 'storage/user1.json'
-      }
+        browserName: 'chromium',
+        channel: 'chrome',
+        viewport: VIEWPORT_DESKTOP,
+        storageState: 'storage/user1.json',
+      },
     },
     {
-      name: 'User 2',
+      name: 'edge',
       use: {
-        storageState: 'storage/user2.json'
-      }
-    }
-  ]
+        browserName: 'chromium',
+        channel: 'msedge',
+        viewport: VIEWPORT_DESKTOP,
+        storageState: 'storage/user2.json',
+      },
+    },
+    {
+      name: 'iphone13',
+      use: {
+        browserName: 'chromium',
+        ...devices['iPhone 13'],
+        storageState: 'storage/user1.json',
+      },
+    },
+    {
+      name: 'galaxyS9',
+      use: {
+        browserName: 'chromium',
+        ...devices['Galaxy S9+'],
+        storageState: 'storage/user2.json',
+      },
+    },
+  ],
 });

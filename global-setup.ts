@@ -1,23 +1,12 @@
-
+//global-setup.ts
 import { chromium } from '@playwright/test';
-import { login } from './session';
+import { login } from './helpers/session';
+import { users } from './users.config';
+
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
-
-const users = [
-  {
-    username: process.env.USERNAME1!,
-    password: process.env.PASSWORD1!,
-    storagePath: 'storage/user1.json'
-  },
-  {
-    username: process.env.USERNAME2!,
-    password: process.env.PASSWORD2!,
-    storagePath: 'storage/user2.json'
-  }
-];
 
 export default async function globalSetup() {
   for (const user of users) {
@@ -30,4 +19,11 @@ export default async function globalSetup() {
       await browser.close();
     }
   }
+}
+
+if (require.main === module) {
+  globalSetup().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 }
