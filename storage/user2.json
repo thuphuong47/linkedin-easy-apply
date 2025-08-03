@@ -1,14 +1,4 @@
 {
-  "cookies": [...],
-  "origins": [
-    {
-      "origin": "https://www.linkedin.com",
-      "localStorage": [
-        {
-          "name": "someName",
-          "value": "someValue"
-        }
-      ]
-    }
-  ]
+  "cookies": [],
+  "origins": []
 }
