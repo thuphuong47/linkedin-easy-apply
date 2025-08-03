@@ -17,15 +17,20 @@ export async function login(page: Page, username: string, password: string) {
 
   if (/\/feed/.test(currentURL)) {
     console.log(`✅ Logged in as ${username}`);
-  } else {    
+  } else {
     const errorBoxes = page.locator('[id*="error"]');
     const count = await errorBoxes.count();
+    const currentURL = page.url(); // 👈 thêm dòng này
 
     if (count > 0) {
       const errorText = await errorBoxes.first().textContent();
-      throw new Error(`❌ Login failed for ${username}: ${errorText || 'Unknown error'}`);
+      throw new Error(`❌ Login failed for ${username} at ${currentURL}: ${errorText || 'Unknown error'}`);
     } else {
-      throw new Error(`❌ Login failed for ${username}: Unknown error (no error box found)`);
+      // 👇 in toàn bộ trang nếu không có error box
+      const content = await page.content();
+      console.log('❗️Page content at login failure:\n', content);
+      throw new Error(`❌ Login failed for ${username} at ${currentURL}: Unknown error (no error box found)`);
     }
   }
 }
+
