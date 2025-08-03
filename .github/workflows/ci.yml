@@ -1,4 +1,3 @@
-
 name: Playwright Tests
 
 on:
@@ -15,16 +14,29 @@ jobs:
         browser: [chromium, msedge]
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm ci
-      - name: Install Browsers
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🎭 Install Playwright browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+
+      - name: 🧪 Run Playwright tests
         env:
           USERNAME1: ${{ secrets.LINKEDIN_USERNAME }}
           PASSWORD1: ${{ secrets.LINKEDIN_PASSWORD }}
         run: npx playwright test --project=${{ matrix.browser }}
+
+      - name: 📤 Upload Playwright HTML report
+        if: always() # đảm bảo luôn upload kể cả khi test fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
