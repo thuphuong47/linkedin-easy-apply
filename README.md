@@ -32,8 +32,6 @@ npm install
 
 3. Add environment variables
 Create a .env file at the root:
-
-env
 USERNAME1=your_email1
 PASSWORD1=your_password1
 
@@ -73,4 +71,5 @@ Fork and experiment!
 @thuphuong47
 
 📎 Disclaimer
+
 This project is for educational and testing purposes only. Automated interactions with LinkedIn may violate their terms of service.
