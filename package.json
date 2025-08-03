@@ -1,0 +1,26 @@
+{
+  "name": "linkedin-easy-apply",
+  "version": "1.0.0",
+  "description": "Automates the LinkedIn Easy Apply job application flow using Playwright.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thuphuong47/linkedin-easy-apply.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thuphuong47/linkedin-easy-apply/issues"
+  },
+  "homepage": "https://github.com/thuphuong47/linkedin-easy-apply#readme",
+  "devDependencies": {
+    "playwright": "^1.54.2"
+  }
+}
