@@ -9,29 +9,34 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      USERNAME1: ${{ secrets.USERNAME1 }}
+      PASSWORD1: ${{ secrets.PASSWORD1 }}
+
     strategy:
       matrix:
         browser: [chrome, edge, iphone13, galaxyS9]
 
     steps:
-      - name: Checkout repository
+      - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 🟦 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
+      - name: 🌐 Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run tests on ${{ matrix.browser }}
-        run: npx playwright test --project=${{ matrix.browser }}
+      - name: 🧪 Run Playwright tests - ${{ matrix.browser }}
+        run: |
+          npx playwright test --project=${{ matrix.browser }}
 
-      - name: Upload HTML report
+      - name: 📤 Upload Playwright HTML Report (${{ matrix.browser }})
         if: always()
         uses: actions/upload-artifact@v4
         with:
