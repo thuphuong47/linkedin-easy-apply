@@ -10,19 +10,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install deps
-      run: npm ci
-
-    - name: Run tests
-      run: npx playwright test
-
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v3
-      with:
-        name: playwright-report
-        path: playwright-report
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install deps
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run tests
+        run: npx playwright test
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report
