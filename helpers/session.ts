@@ -2,23 +2,21 @@
 import { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
-export async function login(page: Page) {
-  console.log('🔹 Logging in...');
+export async function login(page: Page, username: string, password: string) {
+  console.log(`🔹 Logging in as ${username}`);
   await page.goto('https://www.linkedin.com/login');
-  await page.fill('input[name="session_key"]', process.env.LINKEDIN_USERNAME || '');
-  await page.fill('input[name="session_password"]', process.env.LINKEDIN_PASSWORD || '');
+  await page.fill('input[name="session_key"]', username);
+  await page.fill('input[name="session_password"]', password);
   await page.click('button[data-litms-control-urn="login-submit"]');
 
-  // ✅ Đợi DOM sẵn sàng (không chờ toàn bộ ảnh)
   await page.waitForLoadState('domcontentloaded');
-
-  // ✅ Kiểm tra đúng URL
   await expect(page).toHaveURL(/.*\/feed.*/);
 
-  console.log('✅ Logged in!');
+  console.log(`✅ Logged in as ${username}`);
 }
 
-export async function preserveSession(page, storagePath: string) {
+export async function preserveSession(page: Page, storagePath: string) {
   await page.context().storageState({ path: storagePath });
 }
+
 
