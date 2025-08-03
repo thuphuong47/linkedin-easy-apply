@@ -47,7 +47,7 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         ...devices['iPhone 13'],
-        storageState: 'storage/user1.json',
+        storageState: 'storage/user1.mobile.json',
       },
     },
     {
