@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/thuphuong47/linkedin-easy-apply#readme",
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "playwright": "^1.54.2"
+  },
+  "dependencies": {
+    "playwright-core": "^1.54.2"
   }
 }
