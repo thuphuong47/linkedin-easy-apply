@@ -1,78 +1,69 @@
-# LinkedIn Easy Apply Automation (Playwright + TypeScript)
+LinkedIn Easy Apply Automation (Playwright + TypeScript)
 
 Automates the LinkedIn Easy Apply job application flow using Playwright.
 
-## 🚀 Features
+Note: This project uses mock login for security and compliance with LinkedIn's Terms of Service. No real credentials or login requests are performed.
 
-- ✅ Chrome, Edge, and mobile emulation
-- ✅ Multi-user session storage (simulate multiple logins)
-- ✅ Resume upload & validation
-- ✅ Auto form-filling with validation checks
-- ✅ GitHub Actions CI/CD Integration
+🚀 Features
 
-## 📁 Project Structure
-├── .github/workflows/ # CI/CD configs
-├── helpers/ # Support utilities (selectors, form handling)
-├── storage/ # Playwright login storage per user
-├── tests/ # Main test files (Easy Apply)
-├── utils/ # Logger, config loader, etc.
-├── .env # User credentials (excluded from Git)
-├── login.setup.ts # Multi-user login + storage file
-├── playwright.config.ts # Playwright project config
-└── README.md # You're here
+✅ Chrome, Edge, and mobile emulation
 
-## ⚙️ Setup Instructions
+✅ Multi-user session mocking (simulate login)
 
-### 1. Clone this repository
+✅ Resume upload & validation
+
+✅ Auto form-filling with validation checks
+
+✅ GitHub Actions CI/CD Integration
+
+📁 Project Structure
+
+├── .github/workflows/       # CI/CD configs
+├── helpers/                 # Mocked login & form helpers
+├── storage/                 # (Mocked) login session per user
+├── tests/                   # Main Playwright test files
+├── utils/                   # Logging, step reporting
+├── .env.example             # Environment variable template
+├── login.setup.ts          # Simulated multi-user login setup
+├── playwright.config.ts    # Playwright config (multi-browser)
+└── README.md                # You're here
+
+⚙️ Setup Instructions
+
+# 1. Clone the repo
 git clone https://github.com/thuphuong47/linkedin-easy-apply.git
 cd linkedin-easy-apply
 
-2. Install dependencies
+# 2. Install dependencies
 npm install
 
-3. Add environment variables
-Create a .env file at the root:
+# 3. Configure environment variables
+cp .env.example .env
 
-env
-USERNAME1=your_email1
-PASSWORD1=your_password1
-
-USERNAME2=your_email2
-PASSWORD2=your_password2
-Or use the provided .env.example file as a template.
+⚠️ This project uses mock login by default. No actual credentials are required.
 
 🧪 Run Tests
-1. Save login sessions
-npx ts-node login.setup.ts
-This will log in users and store sessions to /storage.
 
-2. Run tests (default browser)
-npx playwright test
-Run specific test file
+# Run with mocked login (default)
+MOCK_LOGIN=true npx playwright test
 
-npx playwright test tests/easy-apply.spec.ts
-Optional: Run in headed mode
+# Run specific browser
+MOCK_LOGIN=true npx playwright test --project=chrome
 
-npx playwright test --headed
+# View report
+npx playwright show-report
+
 🤖 CI/CD Integration
-This project includes a sample GitHub Actions workflow:
 
-.github/workflows/ci.yml
-Automatically runs tests on push or pull request to main.
+This project includes a GitHub Actions workflow to run tests on push/PR to main.
 
-🛡️ License
-This project is licensed under the MIT License.
-
-🙌 Contributing
-Contributions welcome! Feel free to:
-Open issues for bugs or enhancements
-Submit PRs with improvements or new features
-Fork and experiment!
-
-💼 Author
-@thuphuong47
+📁 .github/workflows/ci.yml
 
 📎 Disclaimer
 
-This project is for educational and testing purposes only. Automated interactions with LinkedIn may violate their terms of service.
+This project is for educational and testing purposes only.No real login or interaction with LinkedIn servers is performed.Mocking is used to simulate the Easy Apply flow safely.
+
+🙋‍♀️ Author
+
+Built by @thuphuong47 for interview automation assignment.
 
