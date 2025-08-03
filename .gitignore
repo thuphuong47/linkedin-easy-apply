@@ -1,1 +1,26 @@
+# Node.js
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env files
 .env
+
+# Playwright reports & test artifacts
+playwright-report/
+test-results/
+*.png
+*.zip
+*.mp4
+
+# VSCode or IDE configs
+.vscode/
+.idea/
+
+# OS system files
+.DS_Store
+Thumbs.db
