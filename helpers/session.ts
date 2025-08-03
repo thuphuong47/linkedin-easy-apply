@@ -1,4 +1,3 @@
-
 import { Page, expect } from '@playwright/test';
 
 export async function login(page: Page, username: string, password: string) {
@@ -19,9 +18,14 @@ export async function login(page: Page, username: string, password: string) {
   if (/\/feed/.test(currentURL)) {
     console.log(`✅ Logged in as ${username}`);
   } else {    
-    const errorBox = page.locator('[id*="error"]');
-    const errorText = await errorBox.textContent();
-    throw new Error(`❌ Login failed for ${username}: ${errorText || 'Unknown error'}`);
+    const errorBoxes = page.locator('[id*="error"]');
+    const count = await errorBoxes.count();
+
+    if (count > 0) {
+      const errorText = await errorBoxes.first().textContent();
+      throw new Error(`❌ Login failed for ${username}: ${errorText || 'Unknown error'}`);
+    } else {
+      throw new Error(`❌ Login failed for ${username}: Unknown error (no error box found)`);
+    }
   }
 }
-
