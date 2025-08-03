@@ -1,15 +1,14 @@
 {
-  "cookies": [
+  "cookies": [...],
+  "origins": [
     {
-      "name": "li_at",
-      "value": "mock_li_at_token_value",
-      "domain": ".linkedin.com",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "Lax"
+      "origin": "https://www.linkedin.com",
+      "localStorage": [
+        {
+          "name": "someName",
+          "value": "someValue"
+        }
+      ]
     }
-  ],
-  "origins": ["https://www.linkedin.com"]
+  ]
 }
